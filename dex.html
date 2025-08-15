@@ -1,20 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dahej Calculator</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #121212; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
-        .container { background: #1e1e1e; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(255,255,255,0.1); width: 100%; max-width: 450px; }
-        h2 { text-align: center; }
-        label { display: block; margin-top: 10px; }
-        input, select, button { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #555; border-radius: 5px; background: #2c2c2c; color: white; }
-        button { background-color: #4CAF50; color: white; margin-top: 15px; cursor: pointer; }
-        button:hover { background-color: #45a049; }
-        .result { margin-top: 20px; text-align: center; font-weight: bold; }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            max-width: 420px;
+            width: 100%;
+            backdrop-filter: blur(12px);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        label {
+            font-size: 0.9rem;
+            margin-top: 12px;
+            display: block;
+            opacity: 0.85;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: none;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: linear-gradient(90deg, #ff5f6d, #ffc371);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Dahej Calculator</h2>
@@ -31,30 +102,20 @@
             <option>Odia</option>
         </select>
 
-        <label>Salary Status:</label>
-        <select id="salary">
-            <option>Unemployed</option>
-            <option>Student</option>
-            <option>Private Job</option>
-            <option>TCS</option>
-            <option>Government Job</option>
-        </select>
+        <label>Salary (in ₹ per month):</label>
+        <input type="number" id="salaryAmount" placeholder="Enter monthly salary">
 
         <label>Skin Tone:</label>
         <select id="skin">
-            <option>Fair</option>
-            <option>Wheatish</option>
+            <option>Gora</option>
             <option>Dark</option>
         </select>
 
         <label>Age:</label>
         <input type="number" id="age">
 
-        <label>Education:</label>
-        <input type="text" id="education">
-
         <label>Number of Buffalos Owned:</label>
-        <input type="number" id="buffalos">
+        <input type="number" id="buffalo">
 
         <label>Type of Toilet:</label>
         <select id="toilet">
@@ -62,8 +123,12 @@
             <option>Western</option>
         </select>
 
-        <label>Underwear Wearing Range (pairs):</label>
-        <input type="number" id="underwear">
+        <label>Underwear Wearing Range:</label>
+        <select id="underwear">
+            <option>Small</option>
+            <option>Medium</option>
+            <option>Large</option>
+        </select>
 
         <label>Sattu Drinker:</label>
         <select id="sattu">
@@ -79,51 +144,41 @@
 
         <label>Orientation:</label>
         <select id="orientation">
-            <option>Straight</option>
             <option>Gay</option>
-            <option>Pedofile</option>
-            <option>Bakri Chod</option>
+            <option>Straight</option>
+        </select>
+
+        <label>Phone Owned:</label>
+        <select id="phone">
+            <option>iPhone</option>
+            <option>Samsung</option>
+            <option>Other</option>
+        </select>
+
+        <label>Body Type:</label>
+        <select id="body">
+            <option>Fat</option>
+            <option>Thin</option>
         </select>
 
         <button onclick="calculateDahej()">Calculate</button>
-
         <div class="result" id="result"></div>
     </div>
 
     <script>
         function calculateDahej() {
-            let salaryStatus = document.getElementById('salary').value;
-            let baseSalaryMultiplier = {
-                'Unemployed': 0,
-                'Student': 1,
-                'Private Job': 5,
-                'TCS': 7,
-                'Government Job': 10
-            }[salaryStatus] || 1;
-
-            let salaryValue = baseSalaryMultiplier * 10000;
-
-            let buffalos = parseInt(document.getElementById('buffalos').value) || 0;
-            let toilet = document.getElementById('toilet').value;
-            let underwear = parseInt(document.getElementById('underwear').value) || 0;
-            let sattu = document.getElementById('sattu').value;
-            let porn = document.getElementById('porn').value;
-            let orientation = document.getElementById('orientation').value;
-
-            // Fun randomization
-            let randomFactor = Math.floor(Math.random() * 50000);
-
-            let dahej = salaryValue + (buffalos * 2000);
-            if (toilet === 'Western') dahej += 5000;
-            if (underwear > 5) dahej += 2000;
-            if (sattu === 'Yes') dahej += 1000;
-            if (porn === 'Yes') dahej -= 3000;
-            if (orientation === 'Bakri Chod') dahej -= 10000;
-
-            dahej += randomFactor;
-
-            document.getElementById('result').innerText = `Estimated Dahej: ₹${dahej}`;
+            const audio = new Audio('assets/Recording (5).m4a');
+            audio.play().catch(err => {
+                console.error("Audio play failed:", err);
+            });
+            const salaryAmount = parseInt(document.getElementById('salaryAmount').value) || 0;
+            let baseAmount = Math.floor(Math.random() * 500000) + 50000;
+            if (salaryAmount > 0) {
+                baseAmount += salaryAmount * 12; // yearly salary added to base
+            }
+            document.getElementById('result').innerText = `Estimated Dahej: ₹${baseAmount}`;
         }
     </script>
 </body>
+
 </html>
