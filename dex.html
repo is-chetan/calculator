@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dahej Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #121212; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
+        .container { background: #1e1e1e; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(255,255,255,0.1); width: 100%; max-width: 450px; }
+        h2 { text-align: center; }
+        label { display: block; margin-top: 10px; }
+        input, select, button { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #555; border-radius: 5px; background: #2c2c2c; color: white; }
+        button { background-color: #4CAF50; color: white; margin-top: 15px; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+        .result { margin-top: 20px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Dahej Calculator</h2>
+        <label>Name:</label>
+        <input type="text" id="name">
+
+        <label>Caste:</label>
+        <select id="caste">
+            <option>Pandit</option>
+            <option>Gujjar</option>
+            <option>Chamar</option>
+            <option>Bhangi</option>
+            <option>Jaat</option>
+            <option>Odia</option>
+        </select>
+
+        <label>Salary Status:</label>
+        <select id="salary">
+            <option>Unemployed</option>
+            <option>Student</option>
+            <option>Private Job</option>
+            <option>TCS</option>
+            <option>Government Job</option>
+        </select>
+
+        <label>Skin Tone:</label>
+        <select id="skin">
+            <option>Fair</option>
+            <option>Wheatish</option>
+            <option>Dark</option>
+        </select>
+
+        <label>Age:</label>
+        <input type="number" id="age">
+
+        <label>Education:</label>
+        <input type="text" id="education">
+
+        <label>Number of Buffalos Owned:</label>
+        <input type="number" id="buffalos">
+
+        <label>Type of Toilet:</label>
+        <select id="toilet">
+            <option>Indian</option>
+            <option>Western</option>
+        </select>
+
+        <label>Underwear Wearing Range (pairs):</label>
+        <input type="number" id="underwear">
+
+        <label>Sattu Drinker:</label>
+        <select id="sattu">
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+
+        <label>Porn Viewer:</label>
+        <select id="porn">
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+
+        <label>Orientation:</label>
+        <select id="orientation">
+            <option>Straight</option>
+            <option>Gay</option>
+            <option>Pedofile</option>
+            <option>Bakri Chod</option>
+        </select>
+
+        <button onclick="calculateDahej()">Calculate</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateDahej() {
+            let salaryStatus = document.getElementById('salary').value;
+            let baseSalaryMultiplier = {
+                'Unemployed': 0,
+                'Student': 1,
+                'Private Job': 5,
+                'TCS': 7,
+                'Government Job': 10
+            }[salaryStatus] || 1;
+
+            let salaryValue = baseSalaryMultiplier * 10000;
+
+            let buffalos = parseInt(document.getElementById('buffalos').value) || 0;
+            let toilet = document.getElementById('toilet').value;
+            let underwear = parseInt(document.getElementById('underwear').value) || 0;
+            let sattu = document.getElementById('sattu').value;
+            let porn = document.getElementById('porn').value;
+            let orientation = document.getElementById('orientation').value;
+
+            // Fun randomization
+            let randomFactor = Math.floor(Math.random() * 50000);
+
+            let dahej = salaryValue + (buffalos * 2000);
+            if (toilet === 'Western') dahej += 5000;
+            if (underwear > 5) dahej += 2000;
+            if (sattu === 'Yes') dahej += 1000;
+            if (porn === 'Yes') dahej -= 3000;
+            if (orientation === 'Bakri Chod') dahej -= 10000;
+
+            dahej += randomFactor;
+
+            document.getElementById('result').innerText = `Estimated Dahej: ₹${dahej}`;
+        }
+    </script>
+</body>
+</html>
